@@ -1,0 +1,132 @@
+##  What is kubernetese
+    This is  an open source container ochestrattion tool oringinaly develope by google. It manages containers(docker containers), 
+    it helps you manage applications made up of hundreds or thousands of container applications in diferent environments be it physical machines, VM etc.
+##  The features offered by orchestration tools are: High Availability meaning application has no Downtime
+    - Scalability or high performance, - Disaster recovery or backup and restore.
+## Basic components of kubernetese. 
+   -  A worker Nod: its a simple server or virtual machine
+   -  Pod:A smallest unit of K8s or an Abstraction over container. it create a runnig environment or a layer over a container,
+     so that you can replace them whenever.they are Ephemeral meaning that they can die at anytime.
+   - Service: this is basically a perminent IP adress that is attached to each pod that allow containers communicate with each orher.
+    - Igress :
+    - ConfigMap: this is an external configuration of your application.consist data like Database URL.
+    - Secret: it is used to store secret data like user & passwords usually not in a plian text formate but in base64 encoded format.
+##  Data storage: here you will not want your data to get lost when your contianer reloads so we use volumes which attache a physical storage
+    on a hard drive to your pods and it could be on a local machine  where the container is runnning or
+    on a remote storage outside of the kubernetes cluster. so basically can be refered to as an external hard drive connected to your kubernetese cluster.
+
+##  The Kubernets control plane and its components:
+    The Kubernetes control plane is the central management layer of a Kubernetes cluster. It is responsible for making global 
+    decisions about the cluster and maintaining its desired state.
+    It has the following main components;
+    - API Server (kube-apiserver): Its the front-end of the Kubernetes control plane and all communication with the cluster goes through it.
+      It processes Rest API requests, Validates them, Update cluster state and Acts as the gateway for tools like kubectl. For example when you run 
+      the command 'kubectl create deployment my-app" the request goes to the API server which then updates the cluster state.
+    - etcd: This is the cluster’s distributed key-value database. It stores; Clustre configurations, state of pods and nodes,
+       Secretes and config maps, Networking information. Highly consistent storage system for cluster data.
+    -  Controller Manager: Runs background controllers that ensure the cluster stays in the desired state.E.g
+        Replication Controller → ensures the correct number of pods run,. Node controller monitors node health.
+       If a pod crashes, the controller automatically creates a new one.
+    -  Scheduler: The Scheduler decides which node should run a new pod. it evaluates factors like,CPU usage, memory availability Affinity rule
+
+##   Worker Nodes are where applications actually run.
+    ** Kubectle: It ias an agent that runs on every worker node. it is responsible for Communication with the controle plane, Ensures containers are running,
+        Reports node health, Start/stops contianers.
+    ** kube-proxy;  kube-proxy manages network communication between pods and services. Its Mantains network rules, Enables service discovery,
+        Handles load balancing across pods.E.g,  If a service has 3 pods, kube-proxy distributes traffic between them.
+    ** containerd: containerd is the container runtime used to run containers. It is responsible for; Pulling container images, Start/stop containers 
+        Manage container lifecycle. Example:Docker Image → containerd → Running Container,
+
+##  What is the difference between a Deployment and a StatefulSet?
+    Both manage pods, but they are used for different types of applications.
+
+    Feature	Deployment	StatefulSet
+    Pod identity	Random	Stable
+    Storage	Usually ephemeral	Persistent
+    Pod naming	Random suffix	Predictable
+    Use case	Stateless apps	Stateful app
+    ** Deplpoyments use stateless applications like Web servers, APIs, Microservices. this means pods can be changed at any time.
+    ** StatefulSet  Used for stateful applications that require stable identity. such as databases, Redis clusters.
+       Each pod keeps it identity, maintains persistent storage.
+
+##  How does a Service expose applications within or outside the cluster?
+    A Service provides a stable network endpoint to access pods.
+    Pods are temporary, but services provide stable access. Type of services;
+    - ClusterIP (Default): it is Accessible only inside the cluster. Example use case:Backend microservices communicating internally.
+    - NodePort:  Exposes the application on a node's port. E.g, NodeIP:30007, External users can access the service through the node.
+    - LoadBalancer: Creates a cloud provider load balancer. Common in cloud platforms like AWS. Traffic flow: Internet → Load Balancer → Service → Pods
+    - ExternalName: Maps a service to an external DNS name. E.g, database.company.com
+
+## What are the benefits of using YAML files to define Kubernetes resources?
+ 
+               name: my-app
+            spec:
+              replicas: 3  
+   1.  Version Control; YAML files can be stored in Git. e.g, GitHub → Kubernetes manifests
+   2. Reproducibility;  You can recreate the entire environment anytime. e.g, kubectl apply -f deployment.yaml
+   3. Automation ;   Works well with; CI/CD pipeline, GitOps, INfrastructure automation 
+   4. Documentation; YAML files serve as documentation of infrastructure. 
+
+## What does kubectl apply -f do?
+   kubectl apply -f creates or updates Kubernetes resources defined in a YAML file. for example if you run the command "kubectl apply -f deployment.yaml"
+   What happens is that it Reads the YAML file, sends request to API Server, Compares desired state with current state and Updates cluster ifc necessary.
+   It is advantageos in that It performs declarative updates, meaning it only changes what is different.
+
+##  What is Helm, and how does it simplify deployment?
+    Helm is the package manager for Kubernetese. It simplifies the deployment of complex applications. Helms use Charts.
+    A chart is a collection of Kubernetese YARML files packaged together. 
+    Applications like WorkPress, Prometheus, Grafana, Jenkins are deployed using Helms.
+ * Benefits of Helm:
+    -  Simplifies complex deployments; Instead of writing many YAML files manually  e.g helm install my-app bitnami/nginx
+    -  Version management; Helm supports versioned releases. You can rollback by running "helm rollback my-app"
+    - Parameterized configurations; Values can be customized (valeus.yaml)
+
+## How do you monitor the health of a Kubernetes cluster?
+    Monitoring involves observing the Cluster health, Node performance, pod metrics, Application logs. With tools like;
+    - Metrics Server: Which Provides basic metrics like CPU usage, Memory Usage. examples of commands include," kubectl top nodes & kubectl top pods"
+    - Prometheus; The most common Kubernetes monitoring tool.Collects metrics such as CPU usage, memory usage, Network traffic.
+    - Grafana;  Used for visual dashboards.it shows the clusters health, Application performance, Alerting systems.
+    - Logging tools like ELK, Fluentd, Loki, used for log aggrigation and analysis.
+
+##  What are the key differences between deploying to Minikube vs EKS? 
+    Feature	Minikube	EKS
+   Purpose	Local testing	Production
+   Infrastructure	Local machine	AWS Cloud
+   Scalability	Limited	Highly scalable
+   Management	Manual	Managed service
+   Cost	Free	Pay-as-you-go
+
+##    Minikube: A local Kubernetes environment Used for: Learning Kubernetes,Testing applications, Development
+    Example: minikube start
+  ** EKS (Elastic Kubernetes Service),Amazon's managed Kubernetes service.
+    AWS manages: Control plane,High availability, Security patches
+ Benefits: Highly scalable, Integrated with AWS services, Production ready.
+
+##    How does Terraform help with Infrastructure as Code in Kubernetes environments?
+    
+    Terraform is an Infrastructure as Code (IaC) tool that automates infrastructure provisioning.
+    In Kubernetes environments it can:
+    1. Provision cloud infrastructure, Example: VPC, Subnets, EKS cluster, Load balancers
+    2. Deploy Kubernetes resources,Terraform can create: Deployments, Services, Namespaces
+   Example:
+
+       resource "kubernetes_deployment" "app" {
+        metadata {
+          name = "my-app"
+        }
+     }
+   3. Ensure reproducibility: Infrastructure becomes repeatable and version-controlled.
+       Example workflow: Git → Terraform → Cloud Infrastructure → Kubernetes
+   4. Automate environment creation, Terraform can automatically create complete environments:
+       Example:terraform iniT, terraform plan, terraform apply
+      This can deploy The Entire Kubernetes cluster, Networking, Applications
+
+##   Summary
+     Kubernetes combines many components to orchestrate containers efficiently:
+     Control plane manages cluster decisions
+     Worker nodes run applications
+     Deployments and StatefulSets manage pods
+     Services provide networking
+     YAML + kubectl define infrastructure
+     Helm simplifies application deployment
+     Monitoring tools maintain cluster health
