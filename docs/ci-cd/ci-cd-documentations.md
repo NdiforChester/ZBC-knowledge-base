@@ -1,66 +1,196 @@
-# 🚀 CI/CD Documentation
 
-This document outlines the Continuous Integration and Continuous Deployment (CI/CD) processes for the **ZBC Knowledge Base** project. Our goal is to ensure high code quality, automated testing, and seamless deployments.
+CI/CD Documentation is the written guide that explains how a Continuous Integration / Continuous Deployment (or Delivery) pipeline works for a project, application, or system.
 
----
+Think of it as the instruction manual for your automation pipeline so developers, DevOps engineers, and team members can understand, use, troubleshoot, and maintain it.
 
-## 1. 📋 Overview
-We use automated pipelines to handle the lifecycle of our code from commit to production.
-- **Platform:** GitHub Actions (Primary)
-- **Goal:** Catch bugs early, automate repetitive tasks, and maintain a stable production environment.
-- **Philosophy:** Fail fast, fix early, and automate everything that is repeatable.
+Breaking it down
+CI (Continuous Integration)
 
----
+This is the process where developers frequently merge code into a shared repository, and automated steps run such as:
 
-## 2. 🛠️ Pipeline Stages
+Code checkout from GitHub/GitLab
+Dependency installation
+Code compilation/build
+Unit testing
+Code quality/security scanning
+Artifact packaging
 
-The pipeline consists of the following automated stages:
+Example:
+A developer pushes code to GitHub → GitHub Actions or Jenkins automatically runs tests and builds the app.
 
-### A. Build Stage
-- **Dependency Management:** Installs necessary dependencies (e.g., `npm install`, `pip install`).
-- **Compilation:** Compiles source code to ensure structural integrity.
-- **Artifact Creation:** Packages the application for downstream stages.
+CD (Continuous Delivery / Deployment)
 
-### B. Test Stage (CI)
-- **Linting:** Checks for code style and potential errors using tools like `ESLint` or `Ruff`.
-- **Unit Tests:** Executes the test suite to verify individual components.
-- **Integration Tests:** (If applicable) Verifies that different parts of the system work together.
-- **Security Scans:** Automatically scans for known vulnerabilities in dependencies (e.g., `Snyk` or `npm audit`).
+This is the automation that happens after CI succeeds.
 
-### C. Deployment Stage (CD)
-- **Staging:** Automatically deploys the `develop` branch to a staging environment for QA and stakeholder review.
-- **Production:** Deploys the `main` branch to production after manual approval or successful staging tests.
+It may include:
 
----
+Deploying to development environment
+Deploying to staging
+Running integration tests
+Approval gates
+Deploying to production
+Rollback if deployment fails
 
-## 3. 🌲 Branching Strategy
-We follow a standard branching model to manage deployments:
+Example:
+If tests pass → Docker image is built → pushed to ECR → deployed to ECS/Kubernetes.
 
-| Branch | Environment | Trigger | Stability |
-| :--- | :--- | :--- | :--- |
-| `main` | **Production** | Push/Merge (with Approval) | Highly Stable |
-| `develop` | **Staging** | Push/Merge | Integration |
-| `feature/*` | **Preview** | Pull Request | Experimental |
+What CI/CD Documentation Typically Contains
+1. Overview / Purpose
 
----
+Explains:
 
-## 4. 🔐 Secrets Management
-Sensitive information (API keys, database credentials) must **never** be committed to the repository.
+What the pipeline does
+Why it exists
+Which application/service it supports
 
-- **Storage:** Use **GitHub Secrets**.
-- **Access:** Injected into the pipeline via environment variables at runtime.
-- **Rotation:** Secrets should be rotated every 90 days or if a compromise is suspected.
+Example:
 
----
+“This pipeline automates testing, building, containerization, and deployment of the payment-service application.”
 
-## 5. 🔍 Troubleshooting
-If a pipeline fails, follow these steps:
+2. Architecture Diagram
 
-1.  **Check the Logs:** View the failed job in the **Actions** tab on GitHub.
-2.  **Local Replication:** Try running the failing command locally (e.g., `npm test`, `npm run lint`).
-3.  **Environment Audit:** Check if secrets have expired or if there are networking/API timeouts.
-4.  **Dependency Check:** Verify if a new dependency version introduced a breaking change.
+Visual flow of the pipeline.
 
----
+Example:
 
-*Last Updated: May 19, 2026*
+Developer Push
+      ↓
+ GitHub Repository
+      ↓
+ Jenkins / GitHub Actions
+      ↓
+ Run Tests
+      ↓
+ Build Docker Image
+      ↓
+ Push to ECR
+      ↓
+ Deploy to EKS
+      ↓
+ Health Check
+3. Tools Used
+
+Lists technologies involved.
+
+Example:
+
+GitHub
+Jenkins
+GitHub Actions
+Docker
+Kubernetes
+Terraform
+AWS ECR
+AWS EKS
+SonarQube
+Trivy
+4. Pipeline Stages
+
+Step-by-step explanation of each stage.
+
+Example:
+
+Stage	Description
+Checkout	Pull latest code
+Build	Compile application
+Test	Run automated tests
+Scan	Security vulnerability scan
+Package	Build Docker image
+Push	Upload image to registry
+Deploy	Deploy application
+Verify	Run health checks
+5. Configuration Files
+
+Documents important files.
+
+Examples:
+
+Jenkinsfile
+.github/workflows/deploy.yml
+docker-compose.yml
+Dockerfile
+terraform/main.tf
+values.yaml
+
+Explain what each file does.
+
+6. Environment Details
+
+Documents deployment environments.
+
+Example:
+
+Development
+Testing
+Staging
+Production
+
+Include:
+
+URLs
+cluster names
+namespaces
+cloud region
+environment variables
+7. Secrets Management
+
+Explain how secrets are handled.
+
+Examples:
+
+GitHub Secrets
+AWS Secrets Manager
+HashiCorp Vault
+Kubernetes Secrets
+
+Never expose actual secret values.
+
+8. Deployment Strategy
+
+Document how releases happen.
+
+Examples:
+
+Rolling deployment
+Blue/Green deployment
+Canary deployment
+Recreate deployment
+9. Failure Handling / Rollback
+
+Explain what happens if deployment fails.
+
+Example:
+
+Automatic rollback
+Manual rollback steps
+Notification to Slack/email
+10. Monitoring & Alerts
+
+Document observability tools.
+
+Examples:
+
+CloudWatch
+Prometheus
+Grafana
+Datadog
+ELK Stack
+11. Troubleshooting Guide
+
+Common issues and fixes.
+
+Example:
+
+Issue: Docker build fails
+Cause: Missing dependency
+Fix: Rebuild base image
+
+12. Access Requirements
+
+Who can access what.
+
+Example:
+
+Jenkins admin access
+GitHub repo permissions
+AWS IAM roles
