@@ -1,3 +1,4 @@
+
 CI/CD Documentation is the written guide that explains how a Continuous Integration / Continuous Deployment (or Delivery) pipeline works for a project, application, or system.
 
 Think of it as the instruction manual for your automation pipeline so developers, DevOps engineers, and team members can understand, use, troubleshoot, and maintain it.
