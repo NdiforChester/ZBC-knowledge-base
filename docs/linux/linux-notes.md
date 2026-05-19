@@ -51,4 +51,28 @@ Firewall Support: Tools like iptables and ufw manage network security
 This security model makes Linux highly resistant to viruses and unauthorized system modifications compared to many other operating systems.
 
 2. Linux Architecture Overview
-Linux is built using a layered architecture, where each layer has a specific role. This design improves security, stability, and performance by separating user interactions from core system operations.
+Linux architecture refers to the way the Linux operating system is structured and how its different components work together to manage hardware and software resources. Understanding Linux architecture helps users and system administrators know how Linux processes commands, manages files, communicates with hardware, and runs applications.
+Linux uses a layered architecture, where each layer performs a specific role in the system
+
+Linux architecture is commonly divided into the following layers:
+1) Hardware Layer which is made up of CPU (Central Processing Unit), RAM, KEYBOARD,MOUSE.The hardware cannot communicate directly with user applications SO Linux uses the kernel to interact with hardware devices.
+2) Kernel Layer
+It acts as a bridge between hardware and software.
+some of the functions of the kenel are Process management, Memory management,device management,file system management.
+3) Shell Layer
+The shell is the command interpreter that allows users to communicate with the Linux system.It accepts commands from the user and sends them to the kernel for execution. For example, Bash, Zsh Korn shell etc
+4) Application Layer
+This layer contains software and programs used by users. it rely on the shell and kernel to access system resources
+Examples are VS code, Docker, Apache, Firefox etc
+
+Advantages of Linux Architecture
+1. Stability
+Linux can run for long periods without crashing.
+2. Security
+Strong permission and user management system.
+3. Multitasking
+Supports multiple users and processes simultaneously.
+4. Portability
+Linux runs on many hardware platforms.
+5. Open Source
+The source code is publicly available for modification and improvement.
