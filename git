@@ -1,0 +1,50 @@
+The most essential Git commands for managing a project are used to initialize repositories, track changes, and synchronize work with others. Here is a breakdown of basic Git commands categorized by their function:
+
+1. Getting Startedgit init: Initializes a brand new local repository in your current directory.git clone <url>: Creates a local copy of an existing remote repository from a URL.git config --global user.name "Name": Sets your name for attribution in your commits.git config --global user.email "email@example.com": Sets your email for attribution
+
+2. The Daily Workflow (Stage & Commit)git status: Shows the current state of your working directory, including which files are modified or untracked.git add <file>: Stages specific changes for the next commit. Use git add . to stage all changes in the current directory.git commit -m "message": Saves a snapshot of your staged changes with a descriptive message.git log: Displays the history of commits for the current branch
+
+3. Branching & Merginggit branch: Lists all local branches in your repository.git checkout <branch-name>: Switches from the current branch to another branch.git checkout -b <new-branch>: Creates a new branch and switches to it immediately.
+
+4. Remote Synchronizationgit remote add origin <url>: Connects your local repository to a remote server.git push origin <branch>: Uploads your local commits to the remote repository.git pull: Fetches changes from the remote repository and immediately merges them into your local branch.git fetch: Downloads changes from the remote repository but does not merge them into your local files.
+
+# create repository
+git init
+
+# check status
+git status
+
+# create file
+touch app.py
+
+# add file
+git add app.py
+
+# commit
+git commit -m "Created app.py"
+
+# create branch
+git checkout -b feature-login
+
+# merge changes
+git checkout main
+git merge feature-login
+
+# push to GitHub
+git push origin main
+
+
+Best Practices
+Beginners
+
+✅ Commit often
+✅ Use meaningful commit messages
+✅ Pull before pushing
+✅ Create branches for features
+
+Advanced Users
+
+✅ Use rebase carefully
+✅ Protect main branch
+✅ Use SSH authentication
+✅ Review commits before pushing
