@@ -1,88 +1,66 @@
-1 # CI/CD Documentation
-       2
-       3 This document outlines the Continuous Integration and Continuous Deployment (CI/CD) processes
-         for a project. Our goal is to ensure high code quality, automated testing, and seamless
-         deployments.
-       4
-       5 ## 1. Overview
-       6 We use automated pipelines to handle the lifecycle of our code from commit to production.
-       7 - **Platform:** GitHub Actions / GitLab CI (Standard)
-       8 - **Goal:** Catch bugs early, automate repetitive tasks, and maintain a stable production
-         environment.
-       9
-      10 ## 2. Pipeline Stages
-      11
-      12 The pipeline consists of the following automated stages:
-      13
-      14 ### A. Build Stage
-      15 - Compiles the source code.
-      16 - Installs necessary dependencies (e.g., `npm install`, `pip install`).
-      17 - Ensures the project can be built without errors.
-      18
-      19 ### B. Test Stage (CI)
-      20 - **Linting:** Checks for code style and potential errors using tools like ESLint, Pylint, or
-         RuboCop.
-      21 - **Unit Tests:** Executes the test suite to verify individual components.
-      22 - **Security Scans:** Automatically scans for known vulnerabilities in dependencies.
-      23
-      24 ### C. Deployment Stage (CD)
-      25 - **Staging:** Automatically deploys the `develop` branch to a staging environment for QA.
-      26 - **Production:** Deploys the `main` branch to production after manual approval or successful
-         staging tests.
-      27
-      28 ## 3. Branching Strategy
-      29 We follow a standard branching model to manage deployments:
-      30 - `main`: Production-ready code.
-      31 - `develop`: Integration branch for features.
-      32 - `feature/*`: Individual feature branches.
-      33
-      34 | Branch | Environment | Trigger |
-      35 | :--- | :--- | :--- |
-      36 | `main` | Production | Push/Merge (with Approval) |
-      37 | `develop` | Staging | Push/Merge |
-      38 | `feature/*` | Preview (optional) | Pull Request |
-      39
-      40 ## 4. Secrets Management
-      41 Sensitive information (API keys, database credentials) must **never** be committed to the
-         repository.
-      42 - Use **GitHub Secrets** or **GitLab CI/CD Variables**.
-      43 - Access them in the pipeline via environment variables.
-      44
-      45 ## 5. Troubleshooting
-      46 If a pipeline fails:
-      47 1. **Check the Logs:** View the failed job in the Actions/CI tab.
-      48 2. **Local Replication:** Try running the failing command (e.g., `npm test`) locally.
-      49 3. **Common Issues:** Check for expired secrets, dependency mismatches, or network timeouts.
-      50
-      51 ---
-      52 *Last Updated: May 15, 2026*
+# 🚀 CI/CD Documentation
 
+This document outlines the Continuous Integration and Continuous Deployment (CI/CD) processes for the **ZBC Knowledge Base** project. Our goal is to ensure high code quality, automated testing, and seamless deployments.
 
-✦ I have created a comprehensive CI/CD documentation file and prepared a summary note for your contribution.
+---
 
-  1. The Documentation File
-  I have created CICD.md in your workspace. It follows "Docs as Code" best practices and covers:
-   * Pipeline Stages: Build, Test (CI), and Deployment (CD).
-   * Branching Strategy: How code flows from feature branches to production.
-   * Security: Guidelines for managing secrets safely.
-   * Troubleshooting: Steps for developers when a build fails.
+## 1. 📋 Overview
+We use automated pipelines to handle the lifecycle of our code from commit to production.
+- **Platform:** GitHub Actions (Primary)
+- **Goal:** Catch bugs early, automate repetitive tasks, and maintain a stable production environment.
+- **Philosophy:** Fail fast, fix early, and automate everything that is repeatable.
 
-  2. Your Summary Note
-  You can use the following text as your formal summary or contribution note:
+---
 
-  > Contribution: CI/CD Documentation Standard
-  >
-  > Objective: To streamline our development lifecycle by providing a clear, version-controlled reference for
-  our automation processes.
-  >
-  > Key Highlights:
-  >    Standardized Pipeline Flow:* Defined clear stages for Building, Testing (Linting, Unit Tests,
-  Security), and Deployment.
-  >    Environment Mapping:* Established a direct link between our git branching strategy and deployment
-  environments (Staging/Production).
-  >    Developer Autonomy:* Included a troubleshooting section and security guidelines to empower developers
-  to manage their own pipeline failures safely.
-  Next Steps
-   * View the file: You can open CICD.md in VS Code to review the full content.
-   * Initialize Git: If this is a new project, would you like me to help you run git init and commit this
-     file?
+## 2. 🛠️ Pipeline Stages
+
+The pipeline consists of the following automated stages:
+
+### A. Build Stage
+- **Dependency Management:** Installs necessary dependencies (e.g., `npm install`, `pip install`).
+- **Compilation:** Compiles source code to ensure structural integrity.
+- **Artifact Creation:** Packages the application for downstream stages.
+
+### B. Test Stage (CI)
+- **Linting:** Checks for code style and potential errors using tools like `ESLint` or `Ruff`.
+- **Unit Tests:** Executes the test suite to verify individual components.
+- **Integration Tests:** (If applicable) Verifies that different parts of the system work together.
+- **Security Scans:** Automatically scans for known vulnerabilities in dependencies (e.g., `Snyk` or `npm audit`).
+
+### C. Deployment Stage (CD)
+- **Staging:** Automatically deploys the `develop` branch to a staging environment for QA and stakeholder review.
+- **Production:** Deploys the `main` branch to production after manual approval or successful staging tests.
+
+---
+
+## 3. 🌲 Branching Strategy
+We follow a standard branching model to manage deployments:
+
+| Branch | Environment | Trigger | Stability |
+| :--- | :--- | :--- | :--- |
+| `main` | **Production** | Push/Merge (with Approval) | Highly Stable |
+| `develop` | **Staging** | Push/Merge | Integration |
+| `feature/*` | **Preview** | Pull Request | Experimental |
+
+---
+
+## 4. 🔐 Secrets Management
+Sensitive information (API keys, database credentials) must **never** be committed to the repository.
+
+- **Storage:** Use **GitHub Secrets**.
+- **Access:** Injected into the pipeline via environment variables at runtime.
+- **Rotation:** Secrets should be rotated every 90 days or if a compromise is suspected.
+
+---
+
+## 5. 🔍 Troubleshooting
+If a pipeline fails, follow these steps:
+
+1.  **Check the Logs:** View the failed job in the **Actions** tab on GitHub.
+2.  **Local Replication:** Try running the failing command locally (e.g., `npm test`, `npm run lint`).
+3.  **Environment Audit:** Check if secrets have expired or if there are networking/API timeouts.
+4.  **Dependency Check:** Verify if a new dependency version introduced a breaking change.
+
+---
+
+*Last Updated: May 19, 2026*
