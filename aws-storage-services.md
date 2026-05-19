@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AWS Storage Services and Database Services
 
 ## Introduction
@@ -755,3 +756,6 @@ Key takeaways:
 ---
 
 # End of Notes
+=======
+
+>>>>>>> affeff5 (Add AWS storage and database services notes)
