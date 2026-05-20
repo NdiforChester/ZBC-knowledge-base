@@ -45,7 +45,7 @@ Which application/service it supports
 
 Example:
 
-“This pipeline automates testing, building, containerization, and deployment of the payment-service application.”
+"This pipeline automates testing, building, containerization, and deployment of the payment-service application."
 
 2. Architecture Diagram
 
@@ -54,20 +54,20 @@ Visual flow of the pipeline.
 Example:
 
 Developer Push
-      ↓
- GitHub Repository
-      ↓
- Jenkins / GitHub Actions
-      ↓
- Run Tests
-      ↓
- Build Docker Image
-      ↓
- Push to ECR
-      ↓
- Deploy to EKS
-      ↓
- Health Check
+       ↓
+  GitHub Repository
+       ↓
+  Jenkins / GitHub Actions
+       ↓
+  Run Tests
+       ↓
+  Build Docker Image
+       ↓
+  Push to ECR
+       ↓
+  Deploy to EKS
+       ↓
+  Health Check
 3. Tools Used
 
 Lists technologies involved.
@@ -192,5 +192,4 @@ Who can access what.
 Example:
 
 Jenkins admin access
-GitHub repo permissions
 AWS IAM roles
