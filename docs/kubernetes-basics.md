@@ -18,7 +18,8 @@ Kubernetes uses a declarative approach to configuration, where you define the de
 Kubernetes allows you to define resource requests and limits for each pod, ensuring that applications have the resources they need without starving other workloads.
 5. RBAC (Security)
 Role-Based Access Control (RBAC) governs cluster access and permitted actions. By defining roles and assigning them to users or groups, you control permissions granularly. A rol>
-
+6. Storage management – Persistent storage is abstracted by a consistent interface that works across providers, whether in the cloud, on a network share, or on a local filesystem.
+7. Stateless and stateful applications – While Kubernetes initially focused on stateless containers, it’s now also got built-in objects to represent stateful apps too. You can run any kind of application in Kubernetes.
 ## Essential kubectl Commands
 # List all running pods
 kubectl get pods
