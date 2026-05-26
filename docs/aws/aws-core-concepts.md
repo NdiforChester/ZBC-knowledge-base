@@ -2,7 +2,7 @@
 
 ## What is AWS?
 
-Amazon Web Services (AWS) is a cloud computing platform that provides on-demand IT resources such as:
+Amazon Web Services (AWS) is a leading cloud computing platform by Amazon that provides on-demand IT resources such as:
 
 - Compute power
 - Storage
