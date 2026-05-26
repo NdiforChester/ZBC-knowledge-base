@@ -1,8 +1,8 @@
-# AWS Core Concepts and Compute Services
+ # AWS Core Concepts and Compute Services
 
 ## What is AWS?
 
-Amazon Web Services (AWS) is a cloud computing platform that provides on-demand IT resources such as:
+Amazon Web Services (AWS) is the worlds biggest  cloud infrastructure provider platform  that provides on-demand IT resources such as:
 
 - Compute power
 - Storage
