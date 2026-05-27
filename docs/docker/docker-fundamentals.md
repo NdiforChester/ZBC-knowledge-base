@@ -256,7 +256,9 @@ docker build -t myimage .
 ```bash
 docker system prune -a
 ```
-
+⚠ Warning:
+docker system prune -a removes ALL unused images, containers, and networks.
+Use with caution.
 ---
 
 # Docker Lifecycle
