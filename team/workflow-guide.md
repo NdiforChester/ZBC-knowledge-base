@@ -1,188 +1,160 @@
-Team Workflow Guide – ZBC Knowledge Base Project
-Repository Workflow Rules
+# Team Workflow Guide
 
-All team members must follow this workflow when contributing to the project.
+All team members must follow this workflow when contributing to the ZBC Knowledge Base.
 
-Step 1 — Clone the Repository
+## 1. Start With an Issue
+
+Every task should begin as a GitHub Issue.
+
+The issue should include:
+
+- Clear title.
+- Short description.
+- Assigned contributor.
+- Label such as `docs`, `fix`, `review`, or `hotfix`.
+- Project board status.
+
+## 2. Clone the Repository
+
+```bash
 git clone git@github.com:NdiforChester/ZBC-knowledge-base.git
-
-Move into the project:
-
 cd ZBC-knowledge-base
-Step 2 — Pull Latest Changes
+```
 
-Before starting ANY work:
+## 3. Pull the Latest Main Branch
 
+Before starting work:
+
+```bash
 git checkout main
 git pull origin main
+```
 
-Purpose:
+This keeps your branch current and reduces conflicts.
 
-Gets the latest approved updates
-Prevents conflicts
-Ensures everyone works on the newest version
-Step 3 — Create Your Own Branch
+## 4. Create a Feature Branch
 
-NEVER work directly on main.
-
-Create your own feature branch.
+Never work directly on `main`.
 
 Examples:
 
-git checkout -b docs/docker-fundamentals
-git checkout -b docs/linux-networking
-git checkout -b docs/kubernetes-basics
-Step 4 — Add Your Documentation
+```bash
+git checkout -b docs/linux-permissions
+git checkout -b docs/aws-compute-notes
+git checkout -b docs/devops-kubernetes-basics
+git checkout -b fix/broken-readme-link
+```
 
-Go to your assigned folder under docs/.
+## 5. Add or Update Documentation
+
+Use the approved structure:
+
+```text
+docs/
+|-- linux/
+|-- aws/
+`-- devops/
+```
+
+Put each topic in the correct directory.
 
 Examples:
 
-cd docs/docker
-touch docker-fundamentals.md
+- Linux permissions: `docs/linux/linux-notes.md`
+- AWS storage: `docs/aws/aws-storage-services.md`
+- Docker: `docs/devops/docker-fundamentals.md`
+- Kubernetes: `docs/devops/kubernetes-basics.md`
 
-Add your notes/documentation inside the file.
+## 6. Commit Changes
 
-Step 5 — Save Your Changes
-git add .
+Inspect your work:
 
-Commit your work:
+```bash
+git status
+git diff
+```
 
-git commit -m "docs: add Docker fundamentals notes"
+Stage and commit:
 
-Use clear and professional commit messages.
+```bash
+git add docs/devops/docker-fundamentals.md
+git commit -m "docs: improve Docker fundamentals guide"
+```
 
-Step 6 — Push Your Branch
-git push origin docs/docker-fundamentals
-Step 7 — Open Pull Request (PR)
+Use meaningful commit messages.
+
+Good examples:
+
+```text
+docs: add Linux permissions guide
+docs: improve AWS storage notes
+fix: correct broken markdown link
+refactor: reorganize DevOps docs
+```
+
+## 7. Push Your Branch
+
+```bash
+git push origin docs/devops-kubernetes-basics
+```
+
+## 8. Open a Pull Request
 
 On GitHub:
 
-Open a Pull Request
-Base branch → main
-Compare branch → your feature branch
+1. Open a pull request.
+2. Set base branch to `main`.
+3. Set compare branch to your feature branch.
+4. Add a title and summary.
+5. Link the issue.
+6. Request at least one reviewer.
 
-Example:
+## 9. Review and Approval
 
-main ← docs/docker-fundamentals
-Step 8 — Review & Approval
+Every pull request needs at least one reviewer before merge.
 
-Only the Team Lead (Chester) can:
+Reviewers should check:
 
-Review PRs
-Approve PRs
-Merge PRs into main
+- Correct folder placement.
+- Clear writing.
+- Accurate examples.
+- Working links.
+- Professional formatting.
+- No committed secrets.
 
-No team member should merge directly into main.
+## 10. Pull Request Rejection Rules
 
-Pull Request Rejection Rules
+A PR can be rejected when:
 
-A Pull Request (PR) may be REJECTED if:
+- Work was done directly on `main`.
+- The contributor did not start from the latest `main`.
+- Files are in the wrong directory.
+- File names are unclear.
+- Documentation is incomplete or copied without explanation.
+- Commit messages are vague.
+- The PR mixes unrelated topics.
+- Merge conflicts are unresolved.
+- A contributor edits another person's section heavily without communication.
+- Required workflow steps were skipped.
 
-1. Working Directly on Main
+## 11. Merge Conflict Practice
 
-❌ Changes were made directly on main branch.
+When conflicts happen:
 
-Every contribution must come from a feature branch.
+1. Communicate with the other contributor.
+2. Pull or merge the latest target branch.
+3. Open conflicted files.
+4. Remove conflict markers.
+5. Keep the correct final content.
+6. Commit the resolution.
+7. Push the branch again.
 
-2. No Pull Before Starting
-
-❌ Team member did not run:
-
-git pull origin main
-
-before starting work.
-
-This can create outdated work and merge conflicts.
-
-3. Wrong Folder Structure
-
-❌ Documentation added in the wrong folder.
-
-Example:
-
-Docker notes outside docs/docker
-Linux notes outside docs/linux
-
-4. Poor File Naming
-
-❌ File names are unclear or inconsistent.
-
-Bad example:
-
-notes1.md
-
-Good example:
-
-docker-fundamentals.md
-
-5. Empty or Low-Quality Documentation
-
-❌ Notes are incomplete, copied without explanation, or missing important information.
-
-Documentation must:
-
-Be organized
-Be readable
-Include explanations/examples where possible
-
-6. No Meaningful Commit Message
-
-❌ Commit message is unclear.
-
-Bad example:
-
-update
-
-Good example:
-
-docs: add Docker fundamentals notes
-
-7. Multiple Unrelated Topics in One PR
-
-❌ One PR contains unrelated changes.
-
-Example:
-
-Docker notes
-Linux notes
-Kubernetes notes
-
-All mixed in one PR.
-
-Each PR should focus on ONE topic/task.
-
-8. Merge Conflicts Not Resolved
-
-❌ PR contains unresolved merge conflicts.
-
-Team member must:
-
-Pull latest changes
-Resolve conflicts locally
-Push updated branch
-
-9. Unauthorized File Modifications
-
-❌ Team member edits another contributor’s work without approval.
-
-10. Missing Workflow Steps
-
-❌ Team member skips:
-
-branch creation
-commit
-push
-PR creation
-
-All workflow steps are mandatory.
-
-Team Goal
+## 12. Team Goal
 
 The purpose of this project is to:
 
-Practice real DevOps collaboration
-Learn Git & GitHub workflow
-Simulate real-world team contribution process
-Build organized technical documentation collaboratively
-
+- Practice real DevOps collaboration.
+- Learn Git and GitHub workflow.
+- Simulate team contribution in a shared repository.
+- Build organized technical documentation collaboratively.
+- Learn how to recover from mistakes safely.
