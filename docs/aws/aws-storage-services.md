@@ -1,14 +1,10 @@
 # AWS Storage and Database Services
 
-## Introduction
+AWS provides managed storage and database services for storing, protecting, scaling, and analyzing application data. Choosing the right service depends on the kind of data, how the application accesses it, durability needs, performance expectations, and cost.
 
-Amazon Web Services (AWS) provides managed storage and database services for storing, protecting, scaling, and analyzing application data. These services support different access patterns, durability needs, performance requirements, and cost profiles.
+This guide takes a beginner from basic storage concepts to practical intermediate AWS service selection.
 
-This guide covers beginner-to-intermediate AWS storage and database concepts.
-
-## AWS Storage Services
-
-### What Is Cloud Storage?
+## 1. What Is Cloud Storage?
 
 Cloud storage stores data on remote infrastructure that users and applications access over a network, usually through APIs, protocols, or managed service integrations.
 
@@ -22,9 +18,7 @@ Benefits of cloud storage include:
 - Backup and disaster recovery
 - Global accessibility
 
-## Amazon S3
-
-### Overview
+## 2. Amazon S3
 
 Amazon Simple Storage Service (Amazon S3) is object storage for storing and retrieving data at any scale.
 
@@ -123,9 +117,7 @@ S3 can host static websites made of HTML, CSS, JavaScript, images, and other sta
 - Enable logging and monitoring.
 - Use MFA Delete for critical buckets when appropriate.
 
-## Amazon EBS
-
-### Overview
+## 3. Amazon EBS
 
 Amazon Elastic Block Store (Amazon EBS) provides block storage volumes for Amazon EC2 instances. EBS volumes are commonly used as virtual disks for operating systems, databases, and applications that require low-latency block storage.
 
@@ -165,9 +157,7 @@ Benefits include:
 | Access model | Usually attached to one EC2 instance; selected io1/io2 volumes support Multi-Attach in one Availability Zone | Internet/API access, subject to permissions |
 | Performance profile | Low-latency block I/O | Highly scalable object storage |
 
-## Amazon EFS
-
-### Overview
+## 4. Amazon EFS
 
 Amazon Elastic File System (Amazon EFS) provides scalable file storage for Linux-based workloads.
 
@@ -197,9 +187,7 @@ EFS supports multiple compute resources accessing the same file system at the sa
 | Scaling | Automatic | Manual capacity and performance choices |
 | Best for | Shared Linux workloads | Single-instance block storage workloads |
 
-## Amazon FSx
-
-### Overview
+## 5. Amazon FSx
 
 Amazon FSx provides fully managed file systems for specialized workloads.
 
@@ -210,9 +198,7 @@ Amazon FSx provides fully managed file systems for specialized workloads.
 | FSx for NetApp ONTAP | Enterprise workloads using NetApp features |
 | FSx for OpenZFS | Linux workloads requiring OpenZFS features |
 
-## AWS Storage Gateway
-
-### Overview
+## 6. AWS Storage Gateway
 
 AWS Storage Gateway connects on-premises environments with AWS cloud storage.
 
@@ -222,9 +208,7 @@ AWS Storage Gateway connects on-premises environments with AWS cloud storage.
 | Volume Gateway | Block storage backed by AWS |
 | Tape Gateway | Virtual tape backups |
 
-## AWS Backup
-
-### Overview
+## 7. AWS Backup
 
 AWS Backup provides centralized backup management for supported AWS services.
 
@@ -244,7 +228,7 @@ Benefits include:
 - Compliance support
 - Backup monitoring
 
-## AWS Database Services
+## 8. AWS Database Services
 
 ### What Is a Database?
 
@@ -258,352 +242,77 @@ A database is an organized collection of data that can be stored, managed, queri
 | MySQL/PostgreSQL-compatible relational database | Amazon Aurora |
 | NoSQL database | Amazon DynamoDB |
 | Data warehouse | Amazon Redshift |
-| In-memory cache | Amazon ElastiCache |
-| Graph database | Amazon Neptune |
-| Time-series database | Amazon Timestream |
+| In-memory database | Amazon ElastiCache |
 
-> Note: Amazon QLDB reached end of support on July 31, 2025. It should not be selected for new learning paths or new workloads. Existing QLDB content should point to AWS migration guidance for Amazon Aurora PostgreSQL.
+## 9. Amazon RDS
 
-## Amazon RDS
+Amazon Relational Database Service (RDS) manages relational databases such as PostgreSQL, MySQL, MariaDB, Oracle, and SQL Server.
 
-### Overview
+RDS helps with:
 
-Amazon Relational Database Service (Amazon RDS) is a managed relational database service.
+- Automated backups.
+- Patching.
+- Multi-AZ high availability.
+- Read replicas.
+- Monitoring.
 
-It simplifies:
+Use RDS when your application needs structured relational data, SQL queries, transactions, and mature database engines.
 
-- Database setup
-- Backups
-- Patching
-- Scaling
-- Monitoring
+## 10. Amazon Aurora
 
-### Supported Database Engines
+Amazon Aurora is a MySQL-compatible and PostgreSQL-compatible relational database built for AWS. It is designed for higher availability and performance than many self-managed database setups.
 
-- MySQL
-- PostgreSQL
-- MariaDB
-- Oracle
-- Microsoft SQL Server
-- Amazon Aurora
+Use Aurora for production relational workloads that need strong scaling and availability features.
 
-### Features
+## 11. Amazon DynamoDB
 
-#### Automated Backups
+DynamoDB is a fully managed NoSQL key-value and document database.
 
-RDS can automatically back up databases and support point-in-time recovery.
+Use DynamoDB when you need:
 
-#### Multi-AZ Deployment
+- Very low latency.
+- Automatic scaling.
+- Serverless operation.
+- High request volume.
+- Simple key-based access patterns.
 
-Multi-AZ deployments improve availability by maintaining standby database resources in another Availability Zone.
+Design matters in DynamoDB. You should understand your access patterns before creating tables and indexes.
 
-#### Read Replicas
+## 12. Amazon Redshift
 
-Read replicas improve read scalability for supported engines and workloads.
+Amazon Redshift is a cloud data warehouse used for analytics and reporting across large datasets.
 
-#### Scaling
+Use Redshift for analytical queries, dashboards, and business intelligence workloads. Do not use it as a normal application transaction database.
 
-RDS supports vertical scaling by changing instance size. Some engines and configurations also support read scaling with replicas.
+## 13. How to Choose Storage
 
-#### Security
+| Need | Common AWS choice |
+| --- | --- |
+| Store images, backups, logs, or static files | S3 |
+| Attach a disk to one EC2 instance | EBS |
+| Share Linux files across multiple instances | EFS |
+| Windows shared file storage | FSx for Windows File Server |
+| Centralized backups | AWS Backup |
+| Relational application database | RDS or Aurora |
+| Serverless key-value database | DynamoDB |
+| Analytics warehouse | Redshift |
 
-RDS security features include:
+## 14. Beginner to Intermediate Practice Path
 
-- Encryption
-- IAM authentication for supported engines
-- Security groups
-- Network isolation through Amazon VPC
+1. Create an S3 bucket in a lab account.
+2. Upload and organize objects with prefixes.
+3. Enable S3 versioning.
+4. Write a lifecycle rule.
+5. Attach an EBS volume to an EC2 instance.
+6. Compare EBS, EFS, and S3.
+7. Create a small RDS database.
+8. Explain when DynamoDB is better than RDS.
 
-### Use Cases
+## 15. Common Mistakes to Avoid
 
-- Web applications
-- ERP systems
-- E-commerce platforms
-- CRM systems
-
-## Amazon Aurora
-
-### Overview
-
-Amazon Aurora is a high-performance relational database compatible with MySQL and PostgreSQL.
-
-### Key Benefits
-
-- Performance improvements compared with standard MySQL and PostgreSQL deployments
-- Automatic storage scaling
-- High availability
-- Fault tolerance
-- Continuous backups
-
-### Architecture
-
-Aurora separates the compute layer from the storage layer. This improves scalability, availability, and resilience.
-
-## Amazon DynamoDB
-
-### Overview
-
-Amazon DynamoDB is a fully managed NoSQL database service.
-
-It provides:
-
-- Low-latency access
-- High scalability
-- Serverless operation options
-
-### Core Concepts
-
-#### Tables
-
-Tables store related application data.
-
-#### Items
-
-Items are individual records in a table.
-
-#### Attributes
-
-Attributes are data fields within an item.
-
-### Features
-
-#### On-Demand Capacity
-
-On-demand capacity automatically handles variable traffic without capacity planning.
-
-#### Global Tables
-
-Global tables replicate data across Regions for multi-Region applications.
-
-#### DynamoDB Streams
-
-DynamoDB Streams capture item-level changes in a table.
-
-#### TTL
-
-Time to Live (TTL) automatically deletes expired items.
-
-### Use Cases
-
-- Gaming applications
-- IoT systems
-- Real-time applications
-- Shopping carts
-- User sessions
-
-## Amazon Redshift
-
-### Overview
-
-Amazon Redshift is a cloud data warehouse service used for analytics, business intelligence, and large-scale reporting.
-
-### Key Features
-
-- Columnar storage
-- Parallel query execution
-- Integration with BI tools
-- Petabyte-scale analytics
-
-### Common Use Cases
-
-- Financial reporting
-- Data analytics
-- Dashboard reporting
-- Big data processing
-
-## Amazon ElastiCache
-
-### Overview
-
-Amazon ElastiCache is an in-memory caching service.
-
-Supported engines include:
-
-- Valkey
-- Redis OSS
-- Memcached
-
-### Benefits
-
-- Reduces database load
-- Improves application response time
-- Supports real-time applications
-
-### Common Use Cases
-
-- Session storage
-- Gaming leaderboards
-- Real-time analytics
-- Caching database queries
-
-## Amazon Neptune
-
-### Overview
-
-Amazon Neptune is a graph database service for highly connected datasets.
-
-### Use Cases
-
-- Social networks
-- Fraud detection
-- Recommendation engines
-- Knowledge graphs
-
-## Amazon Timestream
-
-### Overview
-
-Amazon Timestream is a time-series database service.
-
-It is designed for:
-
-- IoT data
-- Monitoring systems
-- Application metrics
-
-## Database Concepts
-
-### High Availability
-
-High availability helps systems remain operational during failures.
-
-Examples include:
-
-- Multi-AZ deployments
-- Replication
-- Automated failover
-
-### Scalability
-
-#### Vertical Scaling
-
-Vertical scaling increases resources such as CPU, memory, or storage for a server or database instance.
-
-#### Horizontal Scaling
-
-Horizontal scaling adds more servers, partitions, or replicas.
-
-### Backup and Recovery
-
-Important strategies include:
-
-- Automated backups
-- Snapshots
-- Point-in-time recovery
-- Cross-Region backups
-
-### Database Security Best Practices
-
-- Enable encryption.
-- Use IAM roles and least-privilege access.
-- Restrict network access with security groups.
-- Rotate credentials regularly.
-- Enable logging and monitoring.
-- Use Multi-Factor Authentication (MFA) for human access to AWS accounts.
-
-## Monitoring AWS Storage and Databases
-
-### Amazon CloudWatch
-
-Amazon CloudWatch provides:
-
-- Metrics
-- Logs
-- Alarms
-- Dashboards
-
-### AWS CloudTrail
-
-AWS CloudTrail records AWS API calls and user activity for auditing and security analysis.
-
-## Service Comparisons
-
-### Storage Service Comparison
-
-| Service | Storage type | Best use case |
-| --- | --- | --- |
-| S3 | Object | Backup, static content, data lakes, and object storage |
-| EBS | Block | EC2 disks and low-latency block storage |
-| EFS | File | Shared Linux file systems |
-| FSx | File | Specialized enterprise file workloads |
-
-### Database Service Comparison
-
-| Service | Type | Best for |
-| --- | --- | --- |
-| RDS | Relational | Traditional applications |
-| Aurora | Relational | High-performance MySQL/PostgreSQL-compatible applications |
-| DynamoDB | NoSQL | Serverless and high-scale applications |
-| Redshift | Data warehouse | Analytics |
-| ElastiCache | In-memory cache | Caching and low-latency access |
-| Neptune | Graph | Connected data |
-| Timestream | Time-series | IoT and metrics |
-
-## AWS Shared Responsibility Model
-
-### AWS Is Responsible For
-
-- Physical infrastructure
-- Hardware
-- Networking infrastructure
-- Managed service infrastructure
-
-### Customers Are Responsible For
-
-- Data protection
-- IAM permissions
-- Application security
-- Encryption configuration
-- Network access configuration
-
-## Best Practices Summary
-
-### Storage Best Practices
-
-- Choose the correct storage class or service for the access pattern.
-- Enable encryption.
-- Use lifecycle policies.
-- Enable backups.
-- Monitor usage and costs.
-
-### Database Best Practices
-
-- Use Multi-AZ deployments for production relational databases when high availability is required.
-- Enable automated backups.
-- Monitor performance.
-- Use least-privilege access.
-- Implement disaster recovery plans.
-
-## Conclusion
-
-AWS provides storage and database services for many workload types, including object storage, block storage, shared file systems, relational databases, NoSQL databases, analytics, caching, graph data, and time-series data.
-
-Key takeaways:
-
-- Amazon S3 is ideal for object storage.
-- Amazon EBS provides block storage for EC2.
-- Amazon EFS supports shared Linux file systems.
-- Amazon RDS simplifies relational database management.
-- Amazon DynamoDB supports highly scalable NoSQL workloads.
-- Amazon Redshift is optimized for analytics.
-- Security, backups, and monitoring are critical in every AWS environment.
-
-## Additional Learning Resources
-
-- [Amazon S3 documentation](https://docs.aws.amazon.com/s3/)
-- [Amazon EBS documentation](https://docs.aws.amazon.com/ebs/)
-- [Amazon EFS documentation](https://docs.aws.amazon.com/efs/)
-- [Amazon RDS documentation](https://docs.aws.amazon.com/rds/)
-- [Amazon Aurora documentation](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/)
-- [Amazon DynamoDB documentation](https://docs.aws.amazon.com/dynamodb/)
-- [Amazon Redshift documentation](https://docs.aws.amazon.com/redshift/)
-- [Amazon ElastiCache documentation](https://docs.aws.amazon.com/elasticache/)
-- [Migrating from Amazon QLDB to Amazon Aurora PostgreSQL](https://docs.aws.amazon.com/qldb/latest/developerguide/migration.html)
-
-## Recommended Practice
-
-- Create an S3 bucket.
-- Launch an RDS instance in a test environment.
-- Configure a DynamoDB table.
-- Create and restore an EBS snapshot.
-- Monitor storage and database services with CloudWatch.
+- Making S3 buckets public without a real requirement.
+- Using EBS when object storage would be simpler and cheaper.
+- Forgetting backups for databases.
+- Choosing DynamoDB before understanding access patterns.
+- Storing secrets inside object files or application code.
+- Ignoring lifecycle policies for old logs and backups.
